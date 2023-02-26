@@ -2,9 +2,10 @@
 
 ## Merkle Tree.
 1. Collision-resistant Function(CRF) 
-   -  A function $H: \mathrm{M} \rightarrow \mathrm{T}, s.t.\forall x,y \in \mathrm{M}, x \neq y, H(x) \neq H(y)$
+   -  A function 
+     $$H: \mathrm{M} \rightarrow \mathrm{T}, \mathrm{s.t.}  \forall x,y \in \mathrm{M}, x \neq y, H(x) \neq H(y)$$
    -  Hash fuction, eg. SHA256
-   -  If Bob has $m^\prime st. h=H(m^\prime)$, and Alice given $h=H(m)$, So Bob can conclude that $m=m^\prime$
+   -  If Bob has $m^\prime \Rightarrow h=H(m^\prime)$, and Alice gives $h=H(m)$, then Bob can conclude that $m=m^\prime$
 2. Merkle Tree Proof(Merkle 1989)
    - We denote **Merkle Hash Tree** as $\mathrm{MHT}$, A extend of CRF, but takes a sequence $S =(x_1, x_2, \cdots, x_n)$ as input. 
    - Alice posts $\mathrm{MHT}(S) = h$. If Bob has an input $x_i$ and a proof denoted as $\mathbb{\pi_i}$, which can verify that $x_i$ is $i$th input of $S$.
@@ -17,7 +18,7 @@
        - to verify if `root == H(H(m_1, H(x_2)), h_2)`
    - Verify Function can be denoted as $\mathrm{verify}(h, i, x_i, \pi_i) \rightarrow \{0, 1\}$
    - Application: Proof of Work as in Bitcoin
-     - $D$ is difficulty, find $x \in X, st. H(x, y) < \frac{2^n}{D}$ where $y$ is the last block hash.
+     - Define $D$ as difficulty, find $x \in X, st. H(x, y) < \frac{2^n}{D}$ where $y$ is the last block hash.
      - In Bitcoin, `H(x, y)=SHA256(SHA256(x.y))`
    - > **Theorem A (Merkle trees are collision-resistant)**: It is unfeasible to find two sets of leaves $S =(x_1,x_2,\cdots,x_n)$ and $S^\prime =(x^{\prime}_1,x^{\prime}_2,\cdots,x^{\prime}_n)$ such that $S\neq S^\prime$ but $\mathrm{MHT}(S)=\mathrm{MHT}(S^\prime)$
    
@@ -26,7 +27,7 @@
    - > **Theorem B (Merkle proof consistency)**: It is unfeasible to output a Merkle root $h$ and two "inconsistent" proofs $\pi_i$ and $\pi_i^{\prime}$ for two different inputs $x_i$ and $x_i^\prime$ at the $i$th leaf in the tree of size $n$.
 
 ## Digital Signitures.
-1. Secret key to sign a file, and use public key to verify accept or reject.
+1. Use a secret key to sign a file, and use paired public key to verify accept or reject.
     - Triple of algorithm
       - `pk, sk = Gen()`
       - `sign = Sign(sk, msg)`
@@ -41,9 +42,15 @@
 ## Simple Consensus.
 1. Byzantine Generals Problem.(Lamport etal. 1982)
    - Problem Statement: 
-   - There are $n$ generals, one of which is *commander*. Some of which are *loyal*, while some of which are *traitors* (including the commander)
-   - To model this problem. 1. Generals: Nodes, 2. Commander: Leader 3. Loyal: Honest, Traitor: **Adversary**.
-     - The **Adversary Nodes** can have 1. Crash faults(close node), 2. Omission faults(select which to send/receive), 3. Byzantine faults.(deviate)
+     - There are $n$ generals, one of which is *commander*. Some of which are *loyal*, while some of which are *traitors* (including the commander)
+     - To model this problem. 
+        1. Generals: Nodes, 
+        2. Commander: Leader 
+        3. Loyal: Honest, Traitor: **Adversary**.
+     - The **Adversary Nodes** can have 
+        1. Crash faults(close node), 
+        2. Omission faults(select which to send/receive), 
+        3. Byzantine faults.(deviate)
 
 
 ### reference
